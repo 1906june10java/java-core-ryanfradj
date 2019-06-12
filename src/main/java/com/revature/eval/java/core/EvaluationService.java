@@ -2,6 +2,7 @@ package com.revature.eval.java.core;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class EvaluationService {
 
@@ -14,9 +15,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String sample;
+		String acro = ""+phrase.charAt(0);
+		sample= phrase;
+		for(int i=0;i<sample.length();i++) {
+			if(sample.charAt(i)==' '|sample.charAt(i)==','|sample.charAt(i)=='-')
+			{
+				String check=""+sample.charAt(i+1);
+				
+				if(!check.equals(" "))
+				{
+					acro+=sample.toUpperCase().charAt(i+1)+"";
+				}	
+			}	
+		}
+		return acro;
 	}
+	
 
 	/**
 	 * 2. Given a word, compute the scrabble score for that word.
@@ -34,8 +49,92 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int score= 0;
+		int total=0;
+		
+		for (int i=0;i<string.length();i++)
+		{
+			char character= string.toUpperCase().charAt(i);
+			switch(character) {
+			case 'A':
+				total+=1;
+				break;
+			case 'E':
+				total+=1;
+				break;	
+			case 'I':
+				total+=1;
+				break;	
+			case 'O':
+				total+=1;
+				break;	
+			case 'U':
+				total+=1;
+				break;
+			case 'L':
+				total+=1;
+				break;	
+			case 'N':
+				total+=1;
+				break;	
+			case 'R':
+				total+=1;
+				break;	
+			case 'S':
+				total+=1;
+				break;	
+			case 'T':
+				total+=1;
+				break;	
+			case 'D':
+				total+=2;
+				break;
+			case 'G':
+				total+=2;
+				break;
+			case 'M':
+				total+=3;
+				break;
+			case 'P':
+				total+=3;
+				break;
+			case 'C':
+				total+=3;
+				break;
+			case 'B':
+				total+=3;
+				break;
+			case 'F':
+				total+=4;
+				break;
+			case 'H':
+				total+=4;
+				break;
+			case 'V':
+				total+=4;
+				break;
+			case 'W':
+				total+=4;
+				break;
+			case 'Y':
+				total+=4;
+				break;
+			case 'K':
+				total+=5;
+				break;
+			case 'X':
+				total+=8;
+				break;
+			case 'Q':
+				total+=10;
+				break;
+			case 'Z':
+				total+=10;
+				break;
+			}
+		}
+			
+		return total;
 	}
 
 	/**
@@ -70,8 +169,23 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String number = "";
+		for(int i=0;i<string.length();i++) {
+			if(string.charAt(0)=='+'&& string.charAt(1)=='1') {
+				i+=2;
+			}if (string.charAt(0)=='1') {
+					i++;
+			}
+			if (string.charAt(i)!=' '&& string.charAt(i)!='-'&& string.charAt(i)!='_'&& string.charAt(i)!='.'&& string.charAt(i)!='('&& string.charAt(i)!=')') {
+						number=number+string.charAt(i);
+					}
+		}
+		if (number.length()>10||number.length()<10){
+			throw new IllegalArgumentException();
+		}
+	
+		return number;
+		
 	}
 
 	/**
