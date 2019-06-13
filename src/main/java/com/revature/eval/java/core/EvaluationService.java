@@ -1,8 +1,10 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.Queue;
 
 public class EvaluationService {
 
@@ -16,22 +18,19 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		String sample;
-		String acro = ""+phrase.charAt(0);
-		sample= phrase;
-		for(int i=0;i<sample.length();i++) {
-			if(sample.charAt(i)==' '|sample.charAt(i)==','|sample.charAt(i)=='-')
-			{
-				String check=""+sample.charAt(i+1);
-				
-				if(!check.equals(" "))
-				{
-					acro+=sample.toUpperCase().charAt(i+1)+"";
-				}	
-			}	
+		String acro = "" + phrase.charAt(0);
+		sample = phrase;
+		for (int i = 0; i < sample.length(); i++) {
+			if (sample.charAt(i) == ' ' | sample.charAt(i) == ',' | sample.charAt(i) == '-') {
+				String check = "" + sample.charAt(i + 1);
+
+				if (!check.equals(" ")) {
+					acro += sample.toUpperCase().charAt(i + 1) + "";
+				}
+			}
 		}
 		return acro;
 	}
-	
 
 	/**
 	 * 2. Given a word, compute the scrabble score for that word.
@@ -49,91 +48,90 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		int score= 0;
-		int total=0;
-		
-		for (int i=0;i<string.length();i++)
-		{
-			char character= string.toUpperCase().charAt(i);
-			switch(character) {
+		int score = 0;
+		int total = 0;
+
+		for (int i = 0; i < string.length(); i++) {
+			char character = string.toUpperCase().charAt(i);
+			switch (character) {
 			case 'A':
-				total+=1;
+				total += 1;
 				break;
 			case 'E':
-				total+=1;
-				break;	
+				total += 1;
+				break;
 			case 'I':
-				total+=1;
-				break;	
+				total += 1;
+				break;
 			case 'O':
-				total+=1;
-				break;	
+				total += 1;
+				break;
 			case 'U':
-				total+=1;
+				total += 1;
 				break;
 			case 'L':
-				total+=1;
-				break;	
+				total += 1;
+				break;
 			case 'N':
-				total+=1;
-				break;	
+				total += 1;
+				break;
 			case 'R':
-				total+=1;
-				break;	
+				total += 1;
+				break;
 			case 'S':
-				total+=1;
-				break;	
+				total += 1;
+				break;
 			case 'T':
-				total+=1;
-				break;	
+				total += 1;
+				break;
 			case 'D':
-				total+=2;
+				total += 2;
 				break;
 			case 'G':
-				total+=2;
+				total += 2;
 				break;
 			case 'M':
-				total+=3;
+				total += 3;
 				break;
 			case 'P':
-				total+=3;
+				total += 3;
 				break;
 			case 'C':
-				total+=3;
+				total += 3;
 				break;
 			case 'B':
-				total+=3;
+				total += 3;
 				break;
 			case 'F':
-				total+=4;
+				total += 4;
 				break;
 			case 'H':
-				total+=4;
+				total += 4;
 				break;
 			case 'V':
-				total+=4;
+				total += 4;
 				break;
 			case 'W':
-				total+=4;
+				total += 4;
 				break;
 			case 'Y':
-				total+=4;
+				total += 4;
 				break;
 			case 'K':
-				total+=5;
+				total += 5;
 				break;
 			case 'X':
-				total+=8;
+				total += 8;
 				break;
 			case 'Q':
-				total+=10;
+				total += 10;
 				break;
 			case 'Z':
-				total+=10;
+				total += 10;
 				break;
 			}
 		}
-			
+
 		return total;
 	}
 
@@ -170,22 +168,24 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		String number = "";
-		for(int i=0;i<string.length();i++) {
-			if(string.charAt(0)=='+'&& string.charAt(1)=='1') {
-				i+=2;
-			}if (string.charAt(0)=='1') {
-					i++;
+		for (int i = 0; i < string.length(); i++) {
+			if (string.charAt(0) == '+' && string.charAt(1) == '1') {
+				i += 2;
 			}
-			if (string.charAt(i)!=' '&& string.charAt(i)!='-'&& string.charAt(i)!='_'&& string.charAt(i)!='.'&& string.charAt(i)!='('&& string.charAt(i)!=')') {
-						number=number+string.charAt(i);
-					}
+			if (string.charAt(0) == '1') {
+				i++;
+			}
+			if (string.charAt(i) != ' ' && string.charAt(i) != '-' && string.charAt(i) != '_' && string.charAt(i) != '.'
+					&& string.charAt(i) != '(' && string.charAt(i) != ')') {
+				number = number + string.charAt(i);
+			}
 		}
-		if (number.length()>10||number.length()<10){
+		if (number.length() > 10 || number.length() < 10) {
 			throw new IllegalArgumentException();
 		}
-	
+
 		return number;
-		
+
 	}
 
 	/**
@@ -241,7 +241,7 @@ public class EvaluationService {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
+
 			return 0;
 		}
 
@@ -276,7 +276,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
+		int num = input;
+		LinkedList<Integer> list = new LinkedList<>();
+		while (num > 0) {
+			list.push(num % 10);
+			num = num / 10;
+		}
+		int power = list.size();
+		int digit;
+		double total = 0;
+		for (int i = 0; i < list.size(); i++) {
+			digit = list.get(i);
+			total += Math.pow(digit, power);
+		}
+		if (total == input) {
+			return true;
+		}
+
 		return false;
 	}
 
@@ -291,10 +307,24 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		List<Long> list = new ArrayList<>();
 
+		while (l % 2 == 0) {
+
+			list.add((long) 2);
+			l = l / 2;
+		}
+		for (int i = 3; i <= Math.sqrt(l); i += 2) {
+			while (l % i == 0) {
+				list.add((long) i);
+				l /= i;
+			}
+		}
+		if (l > 2) {
+			list.add(l);
+		}
+		return list;
+	}
 
 	/**
 	 * 8-9. Create an implementation of the atbash cipher, an ancient encryption
@@ -329,8 +359,34 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+
+			String[] alphabetList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+					"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+			String[] reverse = new String[alphabetList.length];
+			String[] newString = string.replace(" ", "").split("");
+			String[] deciph = new String[string.length()];
+			int c = 0;
+			for (int i = alphabetList.length-1; i >= 0; i--) {
+				reverse[c] = alphabetList[i];
+				c++;
+			}
+			String placeHolder = "";
+			c = 0;
+			int t = 0;
+			for (int i = 0; i < newString.length; i++) {
+				placeHolder = newString[i];
+				for (int y = 0; y < reverse.length; y++) {
+					if (placeHolder.equals(reverse[y])) {
+						t = y;
+					}
+				}
+				deciph[c] = alphabetList[t];
+				c++;
+
+			}
+			String fullCode;
+			fullCode = deciph.toString();
+			return fullCode;
 		}
 
 		/**
@@ -340,7 +396,42 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
+			String[] alphabetList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+					"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+			String[] reverse = new String[alphabetList.length];
+			int c = 0;
+			for (int i = alphabetList.length-1; i >= 0; i--) {
+				reverse[c] = alphabetList[i];
+				c++;
+			}
+			
+			/**String[] alphabetList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+					"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+			String[] reverse = new String[alphabetList.length];
+			String[] newString = string.replace(" ", "").split("");
+			String[] deciph = new String[string.length()];
+			int c = 0;
+			for (int i = alphabetList.length-1; i >= 0; i--) {
+				reverse[c] = alphabetList[i];
+				c++;
+			}
+			String placeHolder = "";
+			c = 0;
+			int t = 0;
+			for (int i = 0; i < newString.length; i++) {
+				placeHolder = newString[i];
+				for (int y = 0; y < reverse.length; y++) {
+					if (placeHolder==reverse[y]) {
+						t = y;
+					}
+				}
+				deciph[c] = alphabetList[t];
+				c++;
+
+			}
+			String fullCode;
+			fullCode = deciph.toString();
+			return fullCode;*/
 			return null;
 		}
 	}
@@ -373,7 +464,45 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
+		String bs=string.replace('?', ' ');
+		System.out.println(string);
+		String[] prompt=bs.split(" ");
+		int numberOne = 0;
+		int numberTwo = 0;
+		String sign = null;
+		int result;
+		
+			try {
+				numberOne=Integer.parseInt(prompt[2]);
+				sign=prompt[3];
+				if(prompt[4].equalsIgnoreCase("by")) {
+					numberTwo=Integer.parseInt(prompt[5]);
+					
+				}
+				else{
+					
+					numberTwo=Integer.parseInt(prompt[4]);
+				}
+				
+				
+				
+			}catch(Exception e) {
+		
+			}
+		switch(sign){
+		case "plus":
+			return result=numberOne+numberTwo;
+			
+		case "minus":
+			return result=numberOne-numberTwo;
+			
+		case "divided":
+			return result=numberOne/numberTwo;
+			
+		case "multiplied":
+			return result=numberOne*numberTwo;
+		}
+		
 		return 0;
 	}
 
