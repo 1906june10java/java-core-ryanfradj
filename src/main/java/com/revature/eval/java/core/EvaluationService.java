@@ -1,10 +1,12 @@
 package com.revature.eval.java.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -198,7 +200,17 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
+		Map<String, Integer> map;
+		String[] s=string.split(" ");
+		Set<String> setList = new HashSet<>();
+		for(String x: s) {
+			setList.add(x);
+		}
+		for(String b: setList) {
+			
+		}
+		
+		
 		return null;
 	}
 
@@ -234,15 +246,44 @@ public class EvaluationService {
 	 * 
 	 * A binary search halves the number of items to check with each iteration, so
 	 * locating an item (or determining its absence) takes logarithmic time. A
-	 * binary search is a dichotomic divide and conquer search algorithm.
+	 * binary search is a dichotomic divide and conquer search algorithm..
 	 * 
 	 */
 	static class BinarySearch<T> {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-
-			return 0;
+			
+			int lower=0;
+			int higher=sortedList.size()-1;
+			int placeHolder=sortedList.size()-1;
+			
+			while(higher>lower)
+			{
+				placeHolder=(higher+lower)/2;
+				if(t.equals(sortedList.get(placeHolder))) {
+					return placeHolder;
+				}
+				else if(placeHolder>sortedList.indexOf(t)) {
+					higher=placeHolder;
+					placeHolder=(placeHolder+lower)/2;
+				}else if(placeHolder<sortedList.indexOf(t)){
+					lower=placeHolder;
+					placeHolder=(placeHolder+higher)/2;
+				}
+				if(t.equals(sortedList.get(placeHolder))) {
+					return placeHolder;
+				}
+				if (lower==placeHolder) {
+					return higher;
+				}
+				if(higher==placeHolder) {
+					return lower;
+				}
+				
+			}
+			
+			return placeHolder;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -359,34 +400,60 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
+			char[] list= string.replace(" ", "").toUpperCase().toCharArray();
+			Map<Character, Character> map = new HashMap<>();
+			map.put('A', 'Z');
+			map.put('B', 'Y');
+			map.put('C', 'X');
+			map.put('D', 'W');
+			map.put('E', 'V');
+			map.put('F', 'U');
+			map.put('G', 'T');
+			map.put('H', 'S');
+			map.put('I', 'R');
+			map.put('J', 'Q');
+			map.put('K', 'P');
+			map.put('L', 'O');
+			map.put('M', 'N');
+			map.put('N', 'M');
+			map.put('O', 'L');
+			map.put('P', 'K');
+			map.put('Q', 'J');
+			map.put('R','I');
+			map.put('S', 'H');
+			map.put('T', 'G');
+			map.put('U', 'F');
+			map.put('V', 'E');
+			map.put('W', 'D');
+			map.put('X', 'C');
+			map.put('Y', 'B');
+			map.put('Z', 'A');
+			String code="";
+			int counter = 0;
+			for(char x: list) {
 
-			String[] alphabetList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-					"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-			String[] reverse = new String[alphabetList.length];
-			String[] newString = string.replace(" ", "").split("");
-			String[] deciph = new String[string.length()];
-			int c = 0;
-			for (int i = alphabetList.length-1; i >= 0; i--) {
-				reverse[c] = alphabetList[i];
-				c++;
-			}
-			String placeHolder = "";
-			c = 0;
-			int t = 0;
-			for (int i = 0; i < newString.length; i++) {
-				placeHolder = newString[i];
-				for (int y = 0; y < reverse.length; y++) {
-					if (placeHolder.equals(reverse[y])) {
-						t = y;
-					}
+				if(counter==5 ) {
+					code= code+" ";
+					counter=0;
 				}
-				deciph[c] = alphabetList[t];
-				c++;
-
+				
+				if (map.get(x) != null) {
+					code += map.get(x);
+					counter++;
+				}
+				
+				if (Character.isDigit(x)) {
+					code += x;
+					counter++;
+				}
+				
+				
 			}
-			String fullCode;
-			fullCode = deciph.toString();
-			return fullCode;
+			System.out.println(code.toLowerCase());
+			if (code.charAt(code.length()-1) == ' ') {
+				return code.toLowerCase().substring(0, code.length()-1);
+			}
+			return code.toLowerCase();
 		}
 
 		/**
@@ -396,45 +463,49 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			String[] alphabetList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-					"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-			String[] reverse = new String[alphabetList.length];
-			int c = 0;
-			for (int i = alphabetList.length-1; i >= 0; i--) {
-				reverse[c] = alphabetList[i];
-				c++;
-			}
-			
-			/**String[] alphabetList = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-					"O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-			String[] reverse = new String[alphabetList.length];
-			String[] newString = string.replace(" ", "").split("");
-			String[] deciph = new String[string.length()];
-			int c = 0;
-			for (int i = alphabetList.length-1; i >= 0; i--) {
-				reverse[c] = alphabetList[i];
-				c++;
-			}
-			String placeHolder = "";
-			c = 0;
-			int t = 0;
-			for (int i = 0; i < newString.length; i++) {
-				placeHolder = newString[i];
-				for (int y = 0; y < reverse.length; y++) {
-					if (placeHolder==reverse[y]) {
-						t = y;
-					}
+			char[] list= string.replace(" ", "").toUpperCase().toCharArray();
+			Map<Character, Character> map = new HashMap<>();
+			map.put('A', 'Z');
+			map.put('B', 'Y');
+			map.put('C', 'X');
+			map.put('D', 'W');
+			map.put('E', 'V');
+			map.put('F', 'U');
+			map.put('G', 'T');
+			map.put('H', 'S');
+			map.put('I', 'R');
+			map.put('J', 'Q');
+			map.put('K', 'P');
+			map.put('L', 'O');
+			map.put('M', 'N');
+			map.put('N', 'M');
+			map.put('O', 'L');
+			map.put('P', 'K');
+			map.put('Q', 'J');
+			map.put('R','I');
+			map.put('S', 'H');
+			map.put('T', 'G');
+			map.put('U', 'F');
+			map.put('V', 'E');
+			map.put('W', 'D');
+			map.put('X', 'C');
+			map.put('Y', 'B');
+			map.put('Z', 'A');
+			String code="";
+			for(char x: list) {
+				if (map.get(x) != null) {
+					code += map.get(x);
 				}
-				deciph[c] = alphabetList[t];
-				c++;
-
+				if (Character.isDigit(x)) {
+					code += x;
 			}
-			String fullCode;
-			fullCode = deciph.toString();
-			return fullCode;*/
-			return null;
-		}
-	}
+			}
+				if (code.charAt(code.length()-1) == ' ') {
+					return code.toLowerCase().substring(0, code.length()-1);
+				}
+				return code.toLowerCase();
+		
+	}}
 
 	/**
 	 * 10. Parse and evaluate simple math word problems returning the answer as an
@@ -464,45 +535,42 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		String bs=string.replace('?', ' ');
+		String bs = string.replace('?', ' ');
 		System.out.println(string);
-		String[] prompt=bs.split(" ");
+		String[] prompt = bs.split(" ");
 		int numberOne = 0;
 		int numberTwo = 0;
 		String sign = null;
 		int result;
-		
-			try {
-				numberOne=Integer.parseInt(prompt[2]);
-				sign=prompt[3];
-				if(prompt[4].equalsIgnoreCase("by")) {
-					numberTwo=Integer.parseInt(prompt[5]);
-					
-				}
-				else{
-					
-					numberTwo=Integer.parseInt(prompt[4]);
-				}
-				
-				
-				
-			}catch(Exception e) {
-		
+
+		try {
+			numberOne = Integer.parseInt(prompt[2]);
+			sign = prompt[3];
+			if (prompt[4].equalsIgnoreCase("by")) {
+				numberTwo = Integer.parseInt(prompt[5]);
+
+			} else {
+
+				numberTwo = Integer.parseInt(prompt[4]);
 			}
-		switch(sign){
-		case "plus":
-			return result=numberOne+numberTwo;
-			
-		case "minus":
-			return result=numberOne-numberTwo;
-			
-		case "divided":
-			return result=numberOne/numberTwo;
-			
-		case "multiplied":
-			return result=numberOne*numberTwo;
+
+		} catch (Exception e) {
+
 		}
-		
+		switch (sign) {
+		case "plus":
+			return result = numberOne + numberTwo;
+
+		case "minus":
+			return result = numberOne - numberTwo;
+
+		case "divided":
+			return result = numberOne / numberTwo;
+
+		case "multiplied":
+			return result = numberOne * numberTwo;
+		}
+
 		return 0;
 	}
 
