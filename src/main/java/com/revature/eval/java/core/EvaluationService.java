@@ -200,18 +200,28 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		Map<String, Integer> map;
-		String[] s=string.split(" ");
-		Set<String> setList = new HashSet<>();
-		for(String x: s) {
-			setList.add(x);
-		}
-		for(String b: setList) {
+		Map<String, Integer> map = new HashMap<>();
+		string=string.replaceAll("[\r\n]+","");
+		String[] s=string.replace(","," " ).split(" ");
+		
+//		Set<String> setList = new HashSet<>();
+
+//		for(String x: s) {
+//			setList.add(x);
+//		}
+//		int i=1;
+		
+		for(String b: s) {
 			
+			if(map.containsKey(b)) {
+				map.put(b, map.get(b) + 1);
+			} else {
+				map.put(b, 1);
+			}
 		}
 		
 		
-		return null;
+		return map;
 	}
 
 	/**
@@ -449,7 +459,6 @@ public class EvaluationService {
 				
 				
 			}
-			System.out.println(code.toLowerCase());
 			if (code.charAt(code.length()-1) == ' ') {
 				return code.toLowerCase().substring(0, code.length()-1);
 			}
@@ -536,7 +545,7 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		String bs = string.replace('?', ' ');
-		System.out.println(string);
+		 
 		String[] prompt = bs.split(" ");
 		int numberOne = 0;
 		int numberTwo = 0;
